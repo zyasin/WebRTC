@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebView</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 40px;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-container input[type="number"] {
+            text-align: center;
+            height: 32px; /* Adjust the desired height here */
+            box-sizing: border-box;
+        }
+
+        .sum-input {
+            text-align: center;
+            height: 25px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #000000;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vertical-space {
+            margin-bottom: 20px; /* Adjust the desired margin-bottom value */
+        }
+
+        .calculate-button {
+            height: 30px;
+        }
+
+        .sum-button {
+            height: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+
+
+       // Function to clear the input fields on restart
+        function clearWebEntries() {
+            document.getElementById("number1").value = "";
+            document.getElementById("number2").value = "";
+            document.getElementById("sum").value = "";
+        }
+
+
+
+        function receiveNumbers(number1, number2) {
+            document.getElementById("number1").value = number1;
+            document.getElementById("number2").value = number2;
+        }
+
+        function calculateSum() {
+            var number1 = parseInt(document.getElementById("number1").value);
+            var number2 = parseInt(document.getElementById("number2").value);
+            var sum = number1 + number2;
+            document.getElementById("sum").value = sum;
+        }
+
+        function sendResult() {
+            var sum = parseInt(document.getElementById("sum").value);
+            AndroidInterface.sendResultToNative(sum);
+        }
+    </script>
+</head>
+<body>
+<h1>Web Display</h1>
+<div class="input-container">
+    <input type="number" id="number1" placeholder="Number 1">
+</div>
+<div class="input-container">
+    <input type="number" id="number2" placeholder="Number 2">
+</div>
+<button class="calculate-button" onclick="calculateSum()">Calculate Sum</button>
+<div class="vertical-space"></div> <!-- Vertical space -->
+<div class="input-container">
+    <input id="sum" type="text" readonly="true" placeholder="Sum" class="sum-input">
+</div>
+<button class="sum-button" onclick="sendResult()">Send Result to Native</button>
+</body>
+</html>
